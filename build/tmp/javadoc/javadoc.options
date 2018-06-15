@@ -1,0 +1,6 @@
+-classpath '/Users/brightqin/WorkSpace/JavaProject/personplan/build/classes/java/main:/Users/brightqin/WorkSpace/JavaProject/personplan/build/resources/main'
+-d '/Users/brightqin/WorkSpace/JavaProject/personplan/build/docs/javadoc'
+-doctitle 'personplan 1.0.0 API'
+-quiet 
+-windowtitle 'personplan 1.0.0 API'
+'/Users/brightqin/WorkSpace/JavaProject/personplan/src/main/java/io/github/brigtqin/personplan/entity/Plan.java'
