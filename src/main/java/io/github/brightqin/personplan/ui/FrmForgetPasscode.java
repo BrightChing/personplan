@@ -20,10 +20,11 @@ public class FrmForgetPasscode extends JDialog implements ActionListener {
     private JTextField edtAnswer = new JTextField(50);
     private JPasswordField edtPasscode = new JPasswordField(20);
     private JPasswordField edtConfirmPasscode = new JPasswordField(20);
+
     public FrmForgetPasscode(Dialog f, String s, boolean b) {
         super(f, s, b);
         JLabel labelQuestion = new JLabel("");
-        labelQuestion.setText("密保问题："+ User.currentLoginUser.getQuestion());
+        labelQuestion.setText("密保问题：" + User.currentLoginUser.getQuestion());
         JPanel toolBar1 = new JPanel();
         toolBar1.setLayout(new FlowLayout(FlowLayout.LEFT));
         toolBar1.add(labelQuestion);
@@ -52,17 +53,17 @@ public class FrmForgetPasscode extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.btnCancel) {
+            this.dispose();
+            return;
+        }
+        String answer = this.edtAnswer.getText();
+        String passcode = new String(this.edtPasscode.getPassword());
+        String confirmPasscode = new String(this.edtConfirmPasscode.getPassword());
+        try {
+            PersonPlanUtil.userManager.changePasscodeByQuestion(User.currentLoginUser, answer, passcode, confirmPasscode);
             this.setVisible(false);
-        } else if (e.getSource() == this.btnOk) {
-            String answer = this.edtAnswer.getText();
-            String passcode = new String(this.edtPasscode.getPassword());
-            String confirmPasscode = new String(this.edtConfirmPasscode.getPassword());
-            try {
-                PersonPlanUtil.userManager.changePasscodeByQuestion(User.currentLoginUser, answer, passcode, confirmPasscode);
-                this.setVisible(false);
-            } catch (BaseException e1) {
-                JOptionPane.showMessageDialog(null, e1.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
-            }
+        } catch (BaseException e1) {
+            JOptionPane.showMessageDialog(null, e1.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

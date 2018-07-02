@@ -1,10 +1,10 @@
 package io.github.brightqin.personplan.controller;
 
-import java.util.List;
-
 import io.github.brightqin.personplan.entity.Plan;
 import io.github.brightqin.personplan.entity.Step;
 import io.github.brightqin.personplan.util.BaseException;
+
+import java.util.List;
 
 /**
  * @author brightqin
@@ -54,7 +54,7 @@ public interface StepManager {
 
     /**
      * 修改步骤
-     *
+     * @param step  步骤对象
      * @throws BaseException 异常
      */
     void modifyStep(Step step) throws BaseException;

@@ -56,7 +56,7 @@ public interface UserManager {
      * @param answer 密保答案
      * @throws BaseException 异常
      */
-    void setPasscodeQuestion(User user, String question, String answer);
+    void setPasscodeQuestion(User user, String question, String answer) throws BaseException;
 
     /**
      * 密保问题通过修改密码

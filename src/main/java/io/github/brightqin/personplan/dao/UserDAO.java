@@ -1,33 +1,40 @@
-package io.github.brightqin.personUser.dao;
+package io.github.brightqin.personplan.dao;
 
 
 import io.github.brightqin.personplan.entity.User;
-import io.github.brightqin.personplan.util.HibernateUtils;
-import org.hibernate.Session;
 
 
 /**
  * @author brightqin
  * @date 2018/6/13
  */
-public class UserDAO {
-    public void saveUser(User user) {
-        Session session = HibernateUtils.getSession();
-        session.save(user);
-    }
+public interface UserDAO {
+    /**
+     * 保存user
+     *
+     * @param user 用户对象
+     */
+    void saveUser(User user);
 
-    public User getUser(String userId) {
-        Session session = HibernateUtils.getSession();
-        return session.get(User.class, userId);
-    }
+    /**
+     * 查询用户对象
+     *
+     * @param userId 用户ID
+     * @return user 对象
+     */
+    User getUser(String userId);
 
-    public void deleteUser(User user) {
-        Session session = HibernateUtils.getSession();
-        session.delete(user);
-    }
+    /**
+     * 删除用户对象
+     *
+     * @param user 用户对象
+     */
+    void deleteUser(User user);
 
-    public void updateUser(User user) {
-        Session session = HibernateUtils.getSession();
-        session.update(user);
-    }
+    /**
+     * 更新用户
+     *
+     * @param user 用户对象
+     */
+    void updateUser(User user);
 }

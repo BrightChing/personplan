@@ -1,9 +1,8 @@
 package io.github.brightqin.personplan.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import io.github.brightqin.personplan.util.DateCheckUtil;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -21,11 +20,11 @@ public class Step {
      * 步骤编号
      */
 
-    private int stepId;
+    private Long stepId;
     /**
      * 计划编号
      */
-    private int planId;
+    private Plan plan;
     /**
      * 步骤名称
      */
@@ -51,22 +50,25 @@ public class Step {
      */
     private Date stepCreateTime;
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getStepId() {
+    public Long getStepId() {
         return stepId;
     }
 
-    public void setStepId(int stepId) {
+    public void setStepId(Long stepId) {
         this.stepId = stepId;
     }
 
-    public int getPlanId() {
-        return planId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "planId")
+    public Plan getPlan() {
+        return plan;
     }
 
-    public void setPlanId(int planId) {
-        this.planId = planId;
+    public void setPlan(Plan plan) {
+        this.plan = plan;
     }
 
     public String getStepName() {
@@ -115,6 +117,14 @@ public class Step {
 
     public void setStepCreateTime(Date stepCreateTime) {
         this.stepCreateTime = stepCreateTime;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Step[stepId = %d,planId = %d,stepName = %s,planStarDate = %s," +
+                        "planFinishDate = %s,actualStarDate = %s,actualFinishDate = %s,stepCreateTime = %s]",
+                stepId, plan.getPlanId(), stepName, DateCheckUtil.convertDate(planStarDate), DateCheckUtil.convertDate(planFinishDate)
+                , DateCheckUtil.convertDate(actualStarDate), DateCheckUtil.convertDate(actualFinishDate), DateCheckUtil.convertDate(stepCreateTime));
     }
 
     /**

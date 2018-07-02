@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * @author brightqin
  */
-public class DataCheckUtil {
+public class DateCheckUtil {
 
     public static Date convertDate(String dateString) throws BaseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -22,18 +22,9 @@ public class DataCheckUtil {
         }
         return date;
     }
-    ///dsf
-//	public Date Datebool(String deadline,String kk) throws BaseException {
-//		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//		Date date;
-//		try {
-//			date = df.parse(deadline);
-//		} catch (Exception e) {
-//			throw new BaseException(kk+"时间格式错误\n 应为 型如 2016-09-09");
-//		}
-//		if (!deadline.equals(df.format(date))) {
-//			throw new BaseException(kk+"时间不合法");
-//		}
-//		return date;
-//	}
+
+    public static String convertDate(Date date) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(date);
+    }
 }

@@ -2,7 +2,7 @@ package io.github.brightqin.personplan.ui;
 
 import io.github.brightqin.personplan.entity.Plan;
 import io.github.brightqin.personplan.util.BaseException;
-import io.github.brightqin.personplan.util.DataCheckUtil;
+import io.github.brightqin.personplan.util.DateCheckUtil;
 import io.github.brightqin.personplan.util.PersonPlanUtil;
 
 import javax.swing.*;
@@ -59,7 +59,7 @@ public class FrmModifyPlan extends JDialog implements ActionListener {
             }
             try {
                 if (!"".equals(this.edtDeadline.getText())) {
-                    plan.setDeadLine(DataCheckUtil.convertDate(this.edtDeadline.getText()));
+                    plan.setDeadLine(DateCheckUtil.convertDate(this.edtDeadline.getText()));
                 }
                 PersonPlanUtil.planManager.modifyPlan(plan);
                 this.setVisible(false);

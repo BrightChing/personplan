@@ -5,19 +5,18 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 
-
 /**
  * @author brightqin
  */
 public class HibernateUtils {
-      
-    private static final SessionFactory sessionFactory;
+
+    private static SessionFactory sessionFactory;
+
     static {
-            Configuration configuration = new Configuration().configure();
-            sessionFactory = configuration.buildSessionFactory();
+        sessionFactory = new Configuration().configure().buildSessionFactory();
     }
 
-    public static Session getSession(){
+    public static Session getSession() {
         return sessionFactory.openSession();
     }
-}  
+}

@@ -44,6 +44,9 @@ public class FrmRegister extends JDialog implements ActionListener {
         workPane.add(cmbMaxLoginNum);
         this.getContentPane().add(workPane, BorderLayout.CENTER);
         this.setSize(300, 180);
+        double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        this.setLocation((int) (width - this.getWidth()) / 2, (int) (height - this.getHeight()) / 2);
         this.btnCancel.addActionListener(this);
         this.btnOk.addActionListener(this);
     }
@@ -52,20 +55,21 @@ public class FrmRegister extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.btnCancel) {
             this.setVisible(false);
-        } else if (e.getSource() == this.btnOk) {
-            if (this.cmbMaxLoginNum.getSelectedIndex() <= 0) {
-                JOptionPane.showMessageDialog(null, "请选择最大同时登陆数", "错误", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            String userId = this.edtUserId.getText();
-            String passcode = new String(this.edtPasscode.getPassword());
-            String confirmPasscode = new String(this.edtConfirmPasscode.getPassword());
-            try {
-                PersonPlanUtil.userManager.register(userId, passcode, confirmPasscode, this.cmbMaxLoginNum.getSelectedIndex());
-                this.setVisible(false);
-            } catch (BaseException e1) {
-                JOptionPane.showMessageDialog(null, e1.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
-            }
+            return;
+        }
+        int maxLoginNum = this.cmbMaxLoginNum.getSelectedIndex();
+        if (maxLoginNum <= 0) {
+            JOptionPane.showMessageDialog(null, "请选择最大同时登陆数", "错误", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String userId = this.edtUserId.getText();
+        String passcode = new String(this.edtPasscode.getPassword());
+        String confirmPasscode = new String(this.edtConfirmPasscode.getPassword());
+        try {
+            PersonPlanUtil.userManager.register(userId, passcode, confirmPasscode, maxLoginNum);
+            this.setVisible(false);
+        } catch (BaseException e1) {
+            JOptionPane.showMessageDialog(null, e1.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

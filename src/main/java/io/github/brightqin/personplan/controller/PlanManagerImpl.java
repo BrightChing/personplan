@@ -1,12 +1,14 @@
 package io.github.brightqin.personplan.controller;
 
 import io.github.brightqin.personplan.dao.PlanDAO;
+import io.github.brightqin.personplan.dao.PlanDAOImpl;
+import io.github.brightqin.personplan.dao.UserDAO;
+import io.github.brightqin.personplan.dao.UserDAOImpl;
 import io.github.brightqin.personplan.entity.Plan;
+import io.github.brightqin.personplan.entity.User;
 import io.github.brightqin.personplan.util.BaseException;
-import io.github.brightqin.personplan.util.DataCheckUtil;
+import io.github.brightqin.personplan.util.DateCheckUtil;
 
-import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,51 +17,54 @@ import java.util.List;
  */
 
 public class PlanManagerImpl implements PlanManager {
-    @Resource
-    private PlanDAO planDAO;
+    private PlanDAO planDAO = new PlanDAOImpl();
+    private UserDAO userDAO = new UserDAOImpl();
 
     /**
      * 添加计划
-     * @param userId         所属用户ID
-     * @param planName       计划名
-     * @param planCreateTime 计划创建的时间
-     * @param deadLine       计划截止时间
+     *
+     * @param userId   所属用户ID
+     * @param planName 计划名
+     * @param deadLine 计划截止时间
      */
     @Override
     public void addPlan(String userId, String planName, String deadLine) throws BaseException {
-        planDAO.savePlan(new Plan(userId, planName, new Date(), DataCheckUtil.convertDate(deadLine)));
+        Plan plan = new Plan();
+        User user = userDAO.getUser(userId);
+        user.setUserId(userId);
+        plan.setPlanName(planName);
+        plan.setUser(user);
+        plan.setDeadLine(DateCheckUtil.convertDate(deadLine));
+        planDAO.savePlan(plan);
     }
 
     /**
      * 提取所有计划
      *
      * @return 加载所有的计划列表
-     * @throws BaseException 异常
      */
     @Override
-    public List<Plan> loadAll() throws BaseException {
-        return null;
+    public List<Plan> loadAllByUserId(String userId) {
+        return planDAO.listAllByUserId(userId);
     }
 
     /**
      * 删除计划，如果计划下存在步骤，则不允许删除
      *
      * @param plan 计划
-     * @throws BaseException 异常
      */
     @Override
-    public void deletePlan(Plan plan) throws BaseException {
-
+    public void deletePlan(Plan plan) {
+        planDAO.deletePlan(plan);
     }
 
     /**
      * 修改计划
      *
      * @param plan 计划
-     * @throws BaseException 异常
      */
     @Override
-    public void modifyPlan(Plan plan) throws BaseException {
+    public void modifyPlan(Plan plan) {
 
     }
 

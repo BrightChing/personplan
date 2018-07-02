@@ -1,8 +1,9 @@
 package io.github.brightqin.personplan.controller;
 
+import io.github.brightqin.personplan.dao.StepDAO;
+import io.github.brightqin.personplan.dao.StepDAOImpl;
 import io.github.brightqin.personplan.entity.Plan;
 import io.github.brightqin.personplan.entity.Step;
-import io.github.brightqin.personplan.util.BaseException;
 
 import java.util.List;
 
@@ -11,13 +12,14 @@ import java.util.List;
  * @date 2018/6/13
  */
 public class StepManagerImpl implements StepManager {
+
+    StepDAO stepDAO = new StepDAOImpl();
     /**
      * 添加步骤
      *
-     * @throws BaseException 异常
      */
     @Override
-    public void addStep() throws BaseException {
+    public void addStep() {
 
     }
 
@@ -26,10 +28,11 @@ public class StepManagerImpl implements StepManager {
      *
      * @param plan 计划
      * @return List<Step>
-     * @throws BaseException 异常
      */
     @Override
-    public List<Step> loadSteps(Plan plan) throws BaseException {
+    public List<Step> loadSteps(Plan plan) {
+
+
         return null;
     }
 
@@ -37,10 +40,9 @@ public class StepManagerImpl implements StepManager {
      * 删除步骤
      *
      * @param step 步骤对象
-     * @throws BaseException 异常
      */
     @Override
-    public void deleteStep(Step step) throws BaseException {
+    public void deleteStep(Step step) {
 
     }
 
@@ -48,10 +50,9 @@ public class StepManagerImpl implements StepManager {
      * 开始一个步骤
      *
      * @param step 步骤对象
-     * @throws BaseException 异常
      */
     @Override
-    public void startStep(Step step) throws BaseException {
+    public void startStep(Step step) {
 
     }
 
@@ -59,10 +60,9 @@ public class StepManagerImpl implements StepManager {
      * 完成一个步骤
      *
      * @param step 步骤对象
-     * @throws BaseException 异常
      */
     @Override
-    public void finishStep(Step step) throws BaseException {
+    public void finishStep(Step step) {
 
     }
 
@@ -70,10 +70,9 @@ public class StepManagerImpl implements StepManager {
      * 修改步骤
      *
      * @param step
-     * @throws BaseException 异常
      */
     @Override
-    public void modifyStep(Step step) throws BaseException {
+    public void modifyStep(Step step) {
 
     }
 }

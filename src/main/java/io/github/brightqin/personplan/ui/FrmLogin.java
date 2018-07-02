@@ -18,7 +18,6 @@ import java.awt.event.WindowEvent;
 public class FrmLogin extends JDialog implements ActionListener {
 
     private JButton btnLogin = new JButton("登陆");
-    private JButton btnCancel = new JButton("退出");
     private JButton btnRegister = new JButton("注册");
     private JButton btnForgetPasscode = new JButton("忘记密码");
 
@@ -29,9 +28,8 @@ public class FrmLogin extends JDialog implements ActionListener {
         super(f, s, b);
         JPanel toolBar = new JPanel();
         toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        toolBar.add(this.btnRegister);
+        toolBar.add(btnRegister);
         toolBar.add(btnLogin);
-        toolBar.add(btnCancel);
         toolBar.add(btnForgetPasscode);
         this.getContentPane().add(toolBar, BorderLayout.SOUTH);
         JPanel workPane = new JPanel();
@@ -47,11 +45,8 @@ public class FrmLogin extends JDialog implements ActionListener {
         double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         this.setLocation((int) (width - this.getWidth()) / 2, (int) (height - this.getHeight()) / 2);
-
         this.validate();
-
         btnLogin.addActionListener(this);
-        btnCancel.addActionListener(this);
         this.btnRegister.addActionListener(this);
         this.btnForgetPasscode.addActionListener(this);
         this.addWindowListener(new WindowAdapter() {
@@ -66,19 +61,17 @@ public class FrmLogin extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.btnLogin) {
             String userId = this.edtUserId.getText();
-            String pwd = new String(this.edtPwd.getPassword());
+            String passcode = new String(this.edtPwd.getPassword());
             try {
-                User.currentLoginUser = PersonPlanUtil.userManager.login(userId, pwd);
+                User.currentLoginUser = PersonPlanUtil.userManager.login(userId, passcode);
             } catch (BaseException e1) {
                 JOptionPane.showMessageDialog(null, e1.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            this.setVisible(false);
-        } else if (e.getSource() == this.btnCancel) {
-            System.exit(0);
+            this.dispose();
         } else if (e.getSource() == this.btnRegister) {
-            FrmRegister dlg = new FrmRegister(this, "注册", true);
-            dlg.setVisible(true);
+            FrmRegister frmRegister = new FrmRegister(this, "注册", true);
+            frmRegister.setVisible(true);
         } else if (e.getSource() == this.btnForgetPasscode) {
             String userId = this.edtUserId.getText();
             User.currentLoginUser = PersonPlanUtil.userManager.getUser(userId);

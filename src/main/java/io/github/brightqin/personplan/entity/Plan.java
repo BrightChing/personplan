@@ -1,10 +1,8 @@
 package io.github.brightqin.personplan.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author brightqin
@@ -21,7 +19,7 @@ public class Plan {
     /**
      * 所属用户ID
      */
-    private String userId;
+    private User user;
     /**
      * 计划名
      */
@@ -47,12 +45,7 @@ public class Plan {
      */
     private Date deadLine;
 
-    public Plan(String userId, String planName, Date planCreateTime, Date deadLine) {
-        this.userId = userId;
-        this.planName = planName;
-        this.planCreateTime = planCreateTime;
-        this.deadLine = deadLine;
-    }
+    private Set<Step> steps;
 
     public Plan() {
     }
@@ -67,12 +60,14 @@ public class Plan {
         this.planId = planId;
     }
 
-    public String getUserId() {
-        return userId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId")
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getPlanName() {
@@ -121,6 +116,16 @@ public class Plan {
 
     public void setDeadLine(Date deadLine) {
         this.deadLine = deadLine;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "planId")
+    public Set<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(Set<Step> steps) {
+        this.steps = steps;
     }
 
     public String getCell(int col) {

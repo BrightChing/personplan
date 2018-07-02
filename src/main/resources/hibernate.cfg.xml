@@ -13,6 +13,7 @@
         <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="format_sql">true</property>
+        <property name="hibernate.current_session_context_class">thread</property>
 
         <mapping class="io.github.brightqin.personplan.entity.User"/>
         <mapping class="io.github.brightqin.personplan.entity.Plan"/>

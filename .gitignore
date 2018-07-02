@@ -1,0 +1,6 @@
+*.jar
+.idea
+.gradle/
+build
+out
+src/test/java/

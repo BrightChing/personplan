@@ -1,17 +1,17 @@
 package io.github.brightqin.personplan.controller;
 
+import io.github.brightqin.personplan.dao.UserDAO;
+import io.github.brightqin.personplan.dao.UserDAOImpl;
 import io.github.brightqin.personplan.entity.User;
 import io.github.brightqin.personplan.util.BaseException;
-import io.github.brightqin.personUser.dao.UserDAO;
 
-import javax.annotation.Resource;
 
 /**
  * @author brightqin
  * @date 2018/6/13
  */
 public class UserManagerImpl implements UserManager {
-    private UserDAO userDAO = new UserDAO();
+    private UserDAO userDAO = new UserDAOImpl();
 
     /**
      * 注册： 要求用户名不能重复，不能为空 两次输入的密码必须一致，密码不能为空 如果注册失败，则抛出异常
@@ -52,7 +52,7 @@ public class UserManagerImpl implements UserManager {
         User user = userDAO.getUser(userId);
         if (user == null) {
             throw new BaseException("用户不存在");
-        } else if (!user.getPasscode().equals(passcode)) {
+        } else if (!passcode.equals(user.getPasscode())) {
             throw new BaseException("密码错误");
         }
         return user;
@@ -83,10 +83,9 @@ public class UserManagerImpl implements UserManager {
      * 退出
      *
      * @param user 用户对象
-     * @throws BaseException 异常
      */
     @Override
-    public void logout(User user) throws BaseException {
+    public void logout(User user) {
 
     }
 

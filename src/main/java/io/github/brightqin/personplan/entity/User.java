@@ -1,8 +1,7 @@
 package io.github.brightqin.personplan.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author brightqin
@@ -17,6 +16,7 @@ public class User {
     private int maxLoginNum;
     private String question;
     private String answer;
+    private Set<Plan> plans;
 
     public User(String userId, String passcode, int maxLoginNum) {
         this.userId = userId;
@@ -27,8 +27,6 @@ public class User {
     public User() {
 
     }
-
-
 
     @Id
     public String getUserId() {
@@ -78,5 +76,15 @@ public class User {
 
     public void setMaxLoginNum(int maxLoginNum) {
         this.maxLoginNum = maxLoginNum;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    public Set<Plan> getPlans() {
+        return plans;
+    }
+
+    public void setPlans(Set<Plan> plans) {
+        this.plans = plans;
     }
 }

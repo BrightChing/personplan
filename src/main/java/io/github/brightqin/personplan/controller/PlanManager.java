@@ -3,7 +3,6 @@ package io.github.brightqin.personplan.controller;
 import io.github.brightqin.personplan.entity.Plan;
 import io.github.brightqin.personplan.util.BaseException;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -19,7 +18,6 @@ public interface PlanManager {
      *
      * @param userId         所属用户ID
      * @param planName       计划名
-     * @param planCreateTime 计划创建的时间
      * @param deadLine       计划截止时间
      * @throws BaseException
      */
@@ -27,11 +25,11 @@ public interface PlanManager {
 
     /**
      * 提取所有计划
-     *
+     * @param useId useId
      * @return 加载所有的计划列表
      * @throws BaseException 异常
      */
-    List<Plan> loadAll() throws BaseException;
+    List<Plan> loadAllByUserId(String useId) throws BaseException;
 
     /**
      * 删除计划，如果计划下存在步骤，则不允许删除
